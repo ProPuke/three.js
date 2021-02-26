@@ -156,13 +156,17 @@ Object.assign( EffectComposer.prototype, {
 					var context = this.renderer.getContext();
 					var stencil = this.renderer.state.buffers.stencil;
 
+					stencil.setLocked( false );
 					//context.stencilFunc( context.NOTEQUAL, 1, 0xffffffff );
 					stencil.setFunc( context.NOTEQUAL, 1, 0xffffffff );
+					stencil.setLocked( true );
 
 					this.copyPass.render( this.renderer, this.writeBuffer, this.readBuffer, deltaTime );
 
+					stencil.setLocked( false );
 					//context.stencilFunc( context.EQUAL, 1, 0xffffffff );
 					stencil.setFunc( context.EQUAL, 1, 0xffffffff );
+					stencil.setLocked( true );
 
 				}
 
